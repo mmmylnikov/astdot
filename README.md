@@ -24,6 +24,8 @@ make runapp
 
 ## 🌐 Demo: [GitHub Pages](https://mmmylnikov.github.io/astdot/)
 
+[![pages-build-deployment](https://github.com/mmmylnikov/astdot/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/mmmylnikov/astdot/actions/workflows/pages/pages-build-deployment)
+
 A live, browser-based demo is available via [GitHub Pages](https://mmmylnikov.github.io/astdot/).
 
 **Limitations**:
