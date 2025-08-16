@@ -37,6 +37,8 @@ A live, browser-based demo is available via [GitHub Pages](https://mmmylnikov.gi
 - Due to browser and Pyodide constraints, some features may be limited (e.g., exporting SVG/PNG).
 - For the best experience (performance and full feature set), it is recommended to run the app locally using uv and Streamlit.
 
+![Serverless using](static/images/ast/demo_serverless.gif)
+
 
 ## 🧪 [Sandbox](sandbox.ipynb)
 
