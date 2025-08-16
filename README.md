@@ -22,8 +22,9 @@ uv run streamlit run src/app.py
 make runapp
 ```
 
-## 🌐 Demo: GitHub Pages
-A live, browser-based demo is available via GitHub Pages.
+## 🌐 Demo: [GitHub Pages](https://mmmylnikov.github.io/astdot/)
+
+A live, browser-based demo is available via [GitHub Pages](https://mmmylnikov.github.io/astdot/).
 
 **Limitations**:
 
@@ -33,9 +34,9 @@ A live, browser-based demo is available via GitHub Pages.
 - For the best experience (performance and full feature set), it is recommended to run the app locally using uv and Streamlit.
 
 
-## 🧪 Sandbox
+## 🧪 [Sandbox](sandbox.ipynb)
 
-Experiment with code and AST visualization in `sandbox.ipynb` (Jupyter).
+Experiment with code and AST visualization in [`sandbox.ipynb`](sandbox.ipynb) (Jupyter).
 
 These playground offer a safe place to explore the API, edit code blocks, and learn how the tool works step by step.
 
