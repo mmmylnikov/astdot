@@ -1,0 +1,10 @@
+[theme]
+base="light"
+
+[server]
+address="localhost"
+port="8502"
+headless=false
+
+[client]
+toolbarMode="viewer"
