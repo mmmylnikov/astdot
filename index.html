@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="180x180" href="static/images/icon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="static/images/icon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="static/images/icon/favicon-16x16.png">
+  <link rel="manifest" href="static/images/icon/site.webmanifest">
+
+  <title>Python AST Viewer — Interactive Syntax Tree Visualizer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --accent: #298eea;
+      --accent-dark: #196cb3;
+      --bg: #f9fbfd;
+    }
+    html,body {
+      height:100%;
+      margin:0;
+      padding:0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color:#242a2c;
+      min-height:100vh;
+    }
+    .container {
+      max-width:640px;
+      margin:40px auto 0 auto;
+      background:#fff;
+      border-radius:18px;
+      box-shadow:0 6px 40px rgba(41,142,234,0.04), 0 1.5px 4px 0 rgba(80,82,90,0.03);
+      padding:40px 38px 38px 38px;
+    }
+    h1 {
+      font-size:2.1rem;
+      margin-bottom:10px;
+      font-weight:700;
+      letter-spacing:-1px;
+      color: var(--accent-dark);
+    }
+    .gentle {
+      color:#555;
+      margin-bottom:27px;
+      font-size:1.15em;
+    }
+    .warning {
+      background: #fff3cd;
+      border-left:6px solid #ffe169;
+      color: #884e13;
+      padding:15px 18px;
+      border-radius:6px;
+      margin-bottom:17px;
+      font-size:1.003em;
+      font-weight:500;
+      box-shadow:0 3px 15px 1.5px #ffe16920;
+      display: flex;
+      align-items:center;
+      gap:0.7em;
+    }
+    .warning svg {
+      flex-shrink:0;
+      width:22px;
+      height:22px;
+      margin-right:8px;
+      fill:#ffc107;
+    }
+    .try-btn {
+      display:inline-block;
+      background: var(--accent);
+      color:#fff !important;
+      text-decoration:none;
+      font-weight:600;
+      font-size:1.18em;
+      padding:17px 42px;
+      border-radius:30px;
+      margin-top:23px;
+      transition: background 0.18s;
+      letter-spacing:0.01em;
+      box-shadow:0 5px 16px #298eea27;
+    }
+    .try-btn:hover { background: var(--accent-dark);}
+    .usage {
+      margin:22px 0 0 0;
+      color:#42474a;
+      font-size:1.04em;
+      line-height:1.6;
+    }
+    @media (max-width:650px) {
+      .container {padding:26px 5vw;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Python AST Viewer</h1>
+    <div class="gentle">
+      Interactive AST (syntax tree) viewer for Python code.<br>
+      Enter your code &mdash; get the structure visualization.<br>
+    </div>
+    <div class="warning">
+      <svg viewBox="0 0 20 20"><path d="M10.185 3.278a1.499 1.499 0 0 0-1.37 0c-.442.214-.59.728-.324 1.103l6.965 9.478a1 1 0 0 1-.754 1.64H4.298a1 1 0 0 1-.754-1.64l6.965-9.478c.266-.375.118-.889-.324-1.103zM9 14a1 1 0 1 0 2 0 1 1 0 0 0-2 0z"/></svg>
+      <div>
+        The app runs entirely in your browser.<br>
+        <b>Requires downloading approximately 70–100 MB</b> during startup (Pyodide and dependencies).
+        <br>A stable internet connection is recommended. Your code is not sent to any server.
+      </div>
+    </div>
+    <div class="usage">
+      <b>Features:</b>
+      <ul>
+        <li>Parsing and visualization of AST for any Python code</li>
+        <li>Highlighting of AST source fragments</li>
+        <li>Works fully locally and anonymously</li>
+      </ul>
+    </div>
+    <a href="app.html" class="try-btn">Go to the app &rarr;</a>
+  </div>
+</body>
+</html>
+

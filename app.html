@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Python AST Viewer</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="static/images/icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/images/icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="static/images/icon/favicon-16x16.png">
+    <link rel="manifest" href="static/images/icon/site.webmanifest">
+    <link href="https://cdn.jsdelivr.net/npm/@stlite/mountable@0.75.0/build/stlite.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div id="stlite"></div>
+    <script src="https://cdn.jsdelivr.net/npm/@stlite/mountable@0.35.0/build/stlite.js"></script>
+    <script>
+    Promise.all([
+        fetch("src/app.py").then(r => r.text()),
+        fetch("src/astdot.py").then(r => r.text()),
+        fetch("src/templates.py").then(r => r.text()),
+    ]).then(([
+        app_py,
+        astdot_py,
+        templates_py
+    ]) => {
+        stlite.mount(
+        {
+            entrypoint: "app.py",
+            requirements: ["graphviz", "streamlit-code-editor"],
+            files: {
+            "app.py": app_py,
+            "astdot.py": astdot_py,
+            "templates.py": templates_py,
+            ".streamlit/config.toml": `
+[client]
+toolbarMode = "viewer"
+`
+            }
+        },
+        document.getElementById("stlite")
+        );
+    });
+    </script>
+
+
+  </body>
+</html>
