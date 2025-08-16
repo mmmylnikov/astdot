@@ -110,32 +110,48 @@ def prepare_ui_settings():
 
 
 def prepare_code_editor_settings():
-    st.selectbox(
+    col1, col2 = st.columns(2)
+    col1.selectbox(
         label='response mode',
-        options=['debounce', 'default'],
+        options=['default', 'debounce'],
         index=0,
+        help=(
+            'In "default" mode, rendering requires manual action; '
+            'in "debounce" mode, AST rendering happens automatically '
+            'while typing.'
+        ),
         key='code_editor_response_mode',
     )
     theme_index = 0 if STATE['ui_theme'] == 'light' else 1
-    st.selectbox(
+    col2.selectbox(
         'theme',
         options=['light', 'dark'],
         index=theme_index,
         key='code_editor_theme',
     )
-    st.selectbox(
+    col1, col2 = st.columns(2)
+    col1.selectbox(
         label='cursor style',
         options=['ace', 'slim', 'smooth', 'wide'],
         index=3,
         key='code_editor_cursorStyle',
     )
-    st.number_input(
+    col2.number_input(
         label='font size',
         value=STATE.get('code_editor_fontSize', 14),
         min_value=8,
         max_value=32,
         key='code_editor_fontSize',
     )
+
+    col1, col2 = st.columns(2)
+    col1.selectbox(
+        label='shortcuts',
+        options=['vscode', 'vim', 'emacs', 'sublime'],
+        index=0,
+        key='code_editor_shortcuts',
+    )
+
     st.checkbox(
         label='wrap',
         value=STATE.get('code_editor_wrap', True),
@@ -433,13 +449,14 @@ def display_code_editor():
         code=STATE['code_editor_template'],
         lang='python',
         key='code_editor',
+        shortcuts=STATE['code_editor_shortcuts'],
         allow_reset=True,
         focus=True,
         theme=STATE['code_editor_theme'],
         response_mode=STATE['code_editor_response_mode'],
         options={
             'wrap': STATE['code_editor_wrap'],
-            'minLines': 7,
+            'minLines': 3,
             'fontSize': STATE['code_editor_fontSize'],
             'cursorStyle': STATE['code_editor_cursorStyle'],
             'showLineNumbers': STATE['code_editor_showLineNumbers'],
@@ -465,6 +482,7 @@ def display_code_editor():
 
 def display_ast_viewer():
     if not STATE['code_editor'] or not STATE['code_editor']['text']:
+        st.caption('No data available for rendering')
         st.info('Please click Render in the code editor or start typing.')
         return
     style = astdot.make_style(
@@ -500,6 +518,7 @@ def display_ast_viewer():
             style=style,
         )
     except SyntaxError as error:
+        st.caption('Exception raised.')
         st.warning(f'SyntaxError: {error}')
     else:
         st.graphviz_chart(
