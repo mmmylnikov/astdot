@@ -22,6 +22,8 @@ uv run streamlit run src/app.py
 make runapp
 ```
 
+![Locally using](static/images/ast/demo_local.gif)
+
 ## 🌐 Demo: [GitHub Pages](https://mmmylnikov.github.io/astdot/)
 
 [![pages-build-deployment](https://github.com/mmmylnikov/astdot/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/mmmylnikov/astdot/actions/workflows/pages/pages-build-deployment)
