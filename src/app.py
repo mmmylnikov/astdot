@@ -181,6 +181,11 @@ def prepare_ast_settings():
         key='code_ast_optimize',
         disabled=not sys.version_info >= (3, 13),
     )
+    st.text_area(
+        label='skip edge names',
+        help='list edge names for exclusion separated by commas',
+        key='code_ast_skip_edge_names',
+    )
 
     st.caption('Style options')
     st.checkbox(
@@ -479,6 +484,11 @@ def display_code_editor():
     )
 
 
+def skip_names(name, value):
+    skip_set = {n.strip() for n in STATE['code_ast_skip_edge_names'].split(',')}
+    return astdot.skip(name, value) or name in skip_set
+
+
 def display_ast_viewer():
     if not STATE['code_editor'] or not STATE['code_editor']['text']:
         st.caption('No data available for rendering')
@@ -508,10 +518,11 @@ def display_ast_viewer():
         splines=STATE['code_ast_splines'],
         force_fit=STATE['code_ast_force_fit'],
     )
+
     try:
         dot = astdot.source_to_dot(
             source=STATE['code_editor']['text'],
-            skip=astdot.skip,
+            skip=skip_names,
             mode=STATE['code_ast_mode'],
             optimize=STATE['code_ast_optimize'],
             style=style,
