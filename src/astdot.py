@@ -5,7 +5,7 @@ from typing import Literal
 
 
 DEFAULT_FONT = 'Menlo'
-ALLOWED_FONTS = ['Menlo', 'Monaco', 'Helvetica']
+ALLOWED_FONTS = ['Menlo', 'Monaco', 'Helvetica', 'JetBrains Mono']
 
 
 def make_style(
@@ -55,7 +55,8 @@ node [
     fontname="{font}"
     fontcolor="{fontcolor}"
     fontsize={fontsize}
-    style=filled
+    shape=box
+    style="rounded, filled"
     fillcolor="{fillcolor}"
     penwidth={penwidth}
     color="{border_color}"
@@ -75,7 +76,7 @@ def graph_to_dot(graph, node_labels, edge_labels, style):
     dot = [f'digraph G {{{style}']
     for n in graph:
         label = node_labels[n].replace('"', '\\"')
-        dot.append(f'{n} [label="{label}" shape=box style="rounded, filled"]')
+        dot.append(f'{n} [label="{label}"]')
     dot.extend(
         f'{src} -> {dst} [label="{edge_labels[src, dst]}"]'
         for src in graph
@@ -131,7 +132,7 @@ def source_to_ast(
     optimize: Literal[None, -1, 0, 1, 2] = None,
     mode: Literal['exec', 'eval', 'single'] = 'exec',
 ):
-    if optimize is None or sys.version_info < (3, 12):
+    if optimize is None or sys.version_info < (3, 13):
         return ast.parse(source, mode=mode)
     return ast.parse(source, mode=mode, optimize=optimize)
 

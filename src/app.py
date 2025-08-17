@@ -73,6 +73,7 @@ def display_settings_block(
         with container.expander(
             label=remove_material_icons(label),
             expanded=expanded,
+            icon=icon,
         ):
             body_generator()
 
@@ -174,11 +175,11 @@ def prepare_ast_settings():
         key='code_ast_mode',
     )
     col2.selectbox(
-        label='optimize (≥3.12 only)',
+        label='optimize (≥3.13 only)',
         options=[-1, 0, 1, 2],
         index=0,
         key='code_ast_optimize',
-        disabled=not sys.version_info >= (3, 12),
+        disabled=not sys.version_info >= (3, 13),
     )
 
     st.caption('Style options')
@@ -429,8 +430,6 @@ def display_card(
 ):
     if not show:
         return
-    if PLATFORM == 'STLITE':
-        label = remove_material_icons(label)
     with container:
         if STATE['ui_show_headers']:
             st.subheader(label)
@@ -606,8 +605,6 @@ def display_code_output():
     if STATE['code_output_show_var']:
         if STATE['ui_show_headers']:
             label_vars = f'{ICONS["vars"]} Variables'
-            if PLATFORM == 'STLITE':
-                label_vars = remove_material_icons(label_vars)
             st.subheader(label_vars)
         variables = {
             k: v
@@ -691,9 +688,6 @@ def prepare_sidebar():
     sidebar = st.sidebar
     sidebar_download_label = f'{ICONS["download"]} Download'
     sidebar_settings_label = f'{ICONS["tune"]} Settings'
-    if PLATFORM == 'STLITE':
-        sidebar_settings_label = remove_material_icons(sidebar_settings_label)
-        sidebar_download_label = remove_material_icons(sidebar_download_label)
 
     if STATE.get('code_editor'):
         sidebar.header(sidebar_download_label)
