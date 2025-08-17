@@ -432,11 +432,12 @@ def display_card(
     body: Callable,
     label: str,
     show: bool = True,
+    show_header: bool = True,
 ):
     if not show:
         return
     with container:
-        if STATE['ui_show_headers']:
+        if STATE['ui_show_headers'] and show_header:
             st.subheader(label)
         body()
 
@@ -730,22 +731,36 @@ def prepare_body():
         label=f'{ICONS["code"]} Code editor',
     )
     display_card(
-        container=col2,
-        body=display_ast_viewer,
-        label=f'{ICONS["ast"]} Abstract Syntax Tree',
-    )
-    display_card(
         container=col1,
         body=display_code_output,
         label=f'{ICONS["output"]} Output',
         show=STATE['code_output_show'],
     )
-    display_card(
-        container=col1,
-        body=display_code_bytecode,
-        label=f'{ICONS["bytecode"]} Bytecode',
-        show=STATE['code_bytecode_show'],
-    )
+
+    ast_label = f'{ICONS["ast"]} Abstract Syntax Tree'
+    if not STATE['code_bytecode_show']:
+        display_card(
+            container=col2,
+            body=display_ast_viewer,
+            label=ast_label,
+            show_header=True,
+        )
+    else:
+        bytecode_label = f'{ICONS["bytecode"]} Bytecode'
+        ast_tab, bytecode_tab = col2.tabs([ast_label, bytecode_label])
+        display_card(
+            container=ast_tab,
+            body=display_ast_viewer,
+            label=ast_label,
+            show_header=False,
+        )
+        display_card(
+            container=bytecode_tab,
+            body=display_code_bytecode,
+            label=bytecode_label,
+            show=STATE['code_bytecode_show'],
+            show_header=False,
+        )
 
 
 def render_page():
